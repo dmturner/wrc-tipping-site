@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ image_file }}">
+        <div class="media-body mt-4">
+          <h2 class="account-heading">{{ current_user.username }}</h2>
+          <p class="text-secondary">{{ current_user.email }}</p>
+        </div>
+      </div>
+      <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">
+            Pick tips for [[ rally name here ]]
+          </legend>
+          {% set select_box_count = 1  %}
+          {% for select in range(10) %}
+            <div class="form-group">
+                <label for="exampleFormControlSelect">Example select</label>
+                <select class="form-control" id="exampleFormControlSelect{{select_box_count}}">
+                  {% for item in entries_list %}
+                    <option>{{ item }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            {% set select_box_count = select_box_count + 1 %}
+          {% endfor %}
+        </fieldset>
+        <div class="form-group">
+          {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+      </form>
+    </div>
+{% endblock content %}
