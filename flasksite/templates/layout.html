@@ -8,16 +8,16 @@
     crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='main.css') }}" />
   {% if title %}
-  <title>Flask Blog - {{ title }}</title>
+  <title>WRC Tipping - {{ title }}</title>
   {% else %}
-  <title>Flask Blog</title>
+  <title>WRC Tipping</title>
   {% endif %}
 </head>
 <body>
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
           <div class="container">
-            <a class="navbar-brand mr-4" href="{{ url_for('home') }}">Flask Blog</a>
+            <a class="navbar-brand mr-4" href="{{ url_for('home') }}">WRC Tipping</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -57,13 +57,27 @@
             </div>
             <div class="col-md-4">
               <div class="content-section">
-                <h3>Our Sidebar</h3>
-                <p class='text-muted'>You can put any information here you'd like.
+                <h3>Sidebar</h3>
+                <p class='text-muted'>Lorem ipsum dolor sit amet consectetur.
                   <ul class="list-group">
-                    <li class="list-group-item list-group-item-light">Latest Posts</li>
-                    <li class="list-group-item list-group-item-light">Announcements</li>
-                    <li class="list-group-item list-group-item-light">Calendars</li>
-                    <li class="list-group-item list-group-item-light">etc</li>
+                    {% if current_user.is_authenticated %}
+                      <li class="list-group-item list-group-item-light">
+                          <a class="nav-item nav-link" href="{{ url_for('tips') }}">Pick tips</a>
+                      </li>
+                      <li class="list-group-item list-group-item-light">
+                          <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+                      </li>
+                      <li class="list-group-item list-group-item-light">
+                          <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                      </li>
+                    {% else %}
+                      <li class="list-group-item list-group-item-light">
+                          <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                      </li>
+                      <li class="list-group-item list-group-item-light">
+                          <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+                      </li>
+                    {% endif %}
                   </ul>
                 </p>
               </div>
