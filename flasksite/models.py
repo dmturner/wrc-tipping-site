@@ -72,6 +72,7 @@ class Event(db.Model):
     year = db.Column(db.String(30), nullable=False)
     start_date_time = db.Column(db.DateTime, nullable=False)
     end_date_time = db.Column(db.DateTime, nullable=False)
+    active = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
         return f"Post('{self.id}', '{self.event_name})"
