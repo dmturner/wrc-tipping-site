@@ -130,11 +130,11 @@ def account():
         form.email.data = current_user.email
 
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html', title='Account', image_file=image_file, form=form, entries_list=entries_list)
+    return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
 @app.route("/tips", methods=['GET', 'POST'])
 @login_required
 def tips():
     form = Top10Form()
-    return render_template('tips.html', title='Tips', form=form)
+    return render_template('tips.html', title='Tips', form=form, entries_list=entries_list)
