@@ -35,3 +35,13 @@ for item in group:
     entries_list.append(item)
 
 entries_list = entries_list[1::2]
+
+# Convert the list to a tuple for use in the forms select boxes.
+# There must be a better way to do this...
+entries_list_tuple = [('Select a driver', 'Select a driver')]
+
+for item in entries_list:
+    insert = (item, item)
+    entries_list_tuple.append(insert)
+
+entries_list = entries_list_tuple

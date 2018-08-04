@@ -7,18 +7,46 @@
           <legend class="border-bottom mb-4">
             Pick tips for [[ rally name here ]]
           </legend>
-          {% set select_box_count = 1  %}
-          {% for select in range(10) %}
-            <div class="form-group">
-                <label for="exampleFormControlSelect">Example select</label>
-                <select class="form-control" id="exampleFormControlSelect{{select_box_count}}">
-                  {% for item in entries_list %}
-                    <option>{{ item }}</option>
-                  {% endfor %}
-                </select>
-            </div>
-            {% set select_box_count = select_box_count + 1 %}
-          {% endfor %}
+          <div class="form-group">
+              {{ form.position_1.label(class="form-control-label") }}
+              {{ form.position_1(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.position_2.label(class="form-control-label") }}
+              {{ form.position_2(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.position_3.label(class="form-control-label") }}
+              {{ form.position_3(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.position_4.label(class="form-control-label") }}
+              {{ form.position_4(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.position_5.label(class="form-control-label") }}
+              {{ form.position_5(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.position_6.label(class="form-control-label") }}
+              {{ form.position_6(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.position_7.label(class="form-control-label") }}
+              {{ form.position_7(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.position_8.label(class="form-control-label") }}
+              {{ form.position_8(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.position_9.label(class="form-control-label") }}
+              {{ form.position_9(class="form-control form-control-lg") }}
+          </div>
+          <div class="form-group">
+              {{ form.position_10.label(class="form-control-label") }}
+              {{ form.position_10(class="form-control form-control-lg") }}
+          </div>
         </fieldset>
         <div class="form-group">
           {{ form.submit(class="btn btn-outline-info") }}
