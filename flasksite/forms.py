@@ -62,4 +62,6 @@ class Top10Form(FlaskForm):
     position_8 = SelectField('8.', choices=entries_list, validators=[DataRequired(), Length(min=2, max=20)])
     position_9 = SelectField('9.', choices=entries_list, validators=[DataRequired(), Length(min=2, max=20)])
     position_10 = SelectField('10.', choices=entries_list, validators=[DataRequired(), Length(min=2, max=20)])
+    stage_two_selection = SelectField('Stage 2.', choices=entries_list, validators=[DataRequired(), Length(min=2, max=20)])
+    power_stage_selection = SelectField('Power stage.', choices=entries_list, validators=[DataRequired(), Length(min=2, max=20)])
     submit = SubmitField('Submit selection')

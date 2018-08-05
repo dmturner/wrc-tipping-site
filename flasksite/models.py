@@ -70,10 +70,10 @@ class Event(db.Model):
     country_name = db.Column(db.String(30), nullable=False)
     full_name = db.Column(db.String(120), nullable=False)
     year = db.Column(db.String(4), nullable=False)
-    start_date_time = db.Column(db.DateTime, nullable=False)
-    end_date_time = db.Column(db.DateTime, nullable=False)
+    start_date_time = db.Column(db.Integer, nullable=False)
+    end_date_time = db.Column(db.Integer, nullable=False)
     active = db.Column(db.Boolean, nullable=False)
-    result = db.Column(db.Text, nullable=False)
+    result = db.Column(db.Text, nullable=True)
 
     def __repr__(self):
-        return f"Post('{self.id}', '{self.event_name})"
+        return f"Post('{self.id}', '{self.country_name})"
