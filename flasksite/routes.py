@@ -41,6 +41,11 @@ def inject_user():
         pic = None
         return dict(pic=pic)
 
+@app.context_processor
+def inject_active_event():
+    active_event = Event.query.filter_by(active=True).first()
+    active_event = active_event.full_name + ' ' + active_event.year
+    return dict(active_event=active_event)
 
 
 @app.errorhandler(404)
@@ -138,8 +143,6 @@ def account():
 @login_required
 def tips():
     form = Top10Form()
-    active_event = Event.query.filter_by(active=True).first()
-    active_event = active_event.full_name + ' ' + active_event.year
     if form.validate_on_submit():
         selection = Selection(
                     user_id=current_user.id,
@@ -179,4 +182,4 @@ def tips():
             form.position_10.data = autofill.top10_selection_10
             form.stage_two_selection.data = autofill.stage_two_selection
             form.power_stage_selection.data = autofill.power_stage_selection
-    return render_template('tips.html', title='Tips', form=form, entries_list=entries_list, active_event=active_event)
+    return render_template('tips.html', title='Tips', form=form, entries_list=entries_list)
