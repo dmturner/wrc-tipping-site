@@ -5,7 +5,7 @@
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
           <legend class="border-bottom mb-4">
-            Pick tips for [[ rally name here ]]
+            Pick tips for {{ active_event }}
           </legend>
           <div class="form-group">
               {{ form.position_1.label(class="form-control-label") }}

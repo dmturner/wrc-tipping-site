@@ -4,7 +4,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from flasksite import app, db, bcrypt
 from flasksite.forms import RegistrationForm, LoginForm, UpdateAccountForm, Top10Form
-from flasksite.models import User, Post, Selection
+from flasksite.models import User, Post, Selection, Event
 from flasksite.scrape import entries_list
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -40,6 +40,7 @@ def inject_user():
     else:
         pic = None
         return dict(pic=pic)
+
 
 
 @app.errorhandler(404)
@@ -137,6 +138,8 @@ def account():
 @login_required
 def tips():
     form = Top10Form()
+    active_event = Event.query.filter_by(active=True).first()
+    active_event = active_event.full_name + ' ' + active_event.year
     if form.validate_on_submit():
         selection = Selection(
                     user_id=current_user.id,
@@ -158,21 +161,22 @@ def tips():
         flash('Your selections have been updated.', 'success')
         return redirect(url_for('tips'))
     elif request.method == 'GET':
-        posit = Selection.query.filter_by(user_id=current_user.id). \
-                                filter_by(event_id=1).order_by('-id').first()
+        if Selection.query.filter_by(user_id=current_user.id). \
+                                filter_by(event_id=1).order_by('-id').first():
 
-        # obj = session.query(ObjectRes).order_by(ObjectRes.id.desc()).first()
+            autofill = Selection.query.filter_by(user_id=current_user.id). \
+                                    filter_by(event_id=1).order_by('-id').first()
 
-        form.position_1.data = posit.top10_selection_1
-        form.position_2.data = posit.top10_selection_2
-        form.position_3.data = posit.top10_selection_3
-        form.position_4.data = posit.top10_selection_4
-        form.position_5.data = posit.top10_selection_5
-        form.position_6.data = posit.top10_selection_6
-        form.position_7.data = posit.top10_selection_7
-        form.position_8.data = posit.top10_selection_8
-        form.position_9.data = posit.top10_selection_9
-        form.position_10.data = posit.top10_selection_10
-        form.stage_two_selection.data = posit.stage_two_selection
-        form.power_stage_selection.data = posit.power_stage_selection
-    return render_template('tips.html', title='Tips', form=form, entries_list=entries_list)
+            form.position_1.data = autofill.top10_selection_1
+            form.position_2.data = autofill.top10_selection_2
+            form.position_3.data = autofill.top10_selection_3
+            form.position_4.data = autofill.top10_selection_4
+            form.position_5.data = autofill.top10_selection_5
+            form.position_6.data = autofill.top10_selection_6
+            form.position_7.data = autofill.top10_selection_7
+            form.position_8.data = autofill.top10_selection_8
+            form.position_9.data = autofill.top10_selection_9
+            form.position_10.data = autofill.top10_selection_10
+            form.stage_two_selection.data = autofill.stage_two_selection
+            form.power_stage_selection.data = autofill.power_stage_selection
+    return render_template('tips.html', title='Tips', form=form, entries_list=entries_list, active_event=active_event)
