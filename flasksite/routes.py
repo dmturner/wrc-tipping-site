@@ -4,7 +4,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from flasksite import app, db, bcrypt
 from flasksite.forms import RegistrationForm, LoginForm, UpdateAccountForm, Top10Form
-from flasksite.models import User, Post, Selection, Event
+from flasksite.models import User, Selection, Event
 from flasksite.scrape import entries_list
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -40,6 +40,7 @@ def inject_user():
     else:
         pic = None
         return dict(pic=pic)
+
 
 @app.context_processor
 def inject_active_event():
@@ -145,41 +146,39 @@ def tips():
     form = Top10Form()
     if form.validate_on_submit():
         selection = Selection(
-                    user_id=current_user.id,
-                    event_id=1,  # Germany. Get the event id from whether event is active or not.
-                    top10_selection_1=form.position_1.data,
-                    top10_selection_2=form.position_2.data,
-                    top10_selection_3=form.position_3.data,
-                    top10_selection_4=form.position_4.data,
-                    top10_selection_5=form.position_5.data,
-                    top10_selection_6=form.position_6.data,
-                    top10_selection_7=form.position_7.data,
-                    top10_selection_8=form.position_8.data,
-                    top10_selection_9=form.position_9.data,
-                    top10_selection_10=form.position_10.data,
-                    stage_two_selection=form.stage_two_selection.data,
-                    power_stage_selection=form.power_stage_selection.data)
+            user_id=current_user.id,
+            event_id=1,  # Germany. Get the event id from whether event is active or not.
+            top10_selection_1=form.position_1.data,
+            top10_selection_2=form.position_2.data,
+            top10_selection_3=form.position_3.data,
+            top10_selection_4=form.position_4.data,
+            top10_selection_5=form.position_5.data,
+            top10_selection_6=form.position_6.data,
+            top10_selection_7=form.position_7.data,
+            top10_selection_8=form.position_8.data,
+            top10_selection_9=form.position_9.data,
+            top10_selection_10=form.position_10.data,
+            stage_two_selection=form.stage_two_selection.data,
+            power_stage_selection=form.power_stage_selection.data)
         db.session.add(selection)
         db.session.commit()
         flash('Your selections have been updated.', 'success')
         return redirect(url_for('tips'))
     elif request.method == 'GET':
-        if Selection.query.filter_by(user_id=current_user.id). \
-                                filter_by(event_id=1).order_by('-id').first():
+        if Selection.query.filter_by(user_id=current_user.id).filter_by(event_id=1).order_by('-id').first():
+                autofill = Selection.query.filter_by(user_id=current_user.id).filter_by(event_id=1).order_by('-id').first()
 
-            autofill = Selection.query.filter_by(user_id=current_user.id). \
-                                    filter_by(event_id=1).order_by('-id').first()
+                form.position_1.data = autofill.top10_selection_1
+                form.position_2.data = autofill.top10_selection_2
+                form.position_3.data = autofill.top10_selection_3
+                form.position_4.data = autofill.top10_selection_4
+                form.position_5.data = autofill.top10_selection_5
+                form.position_6.data = autofill.top10_selection_6
+                form.position_7.data = autofill.top10_selection_7
+                form.position_8.data = autofill.top10_selection_8
+                form.position_9.data = autofill.top10_selection_9
+                form.position_10.data = autofill.top10_selection_10
+                form.stage_two_selection.data = autofill.stage_two_selection
+                form.power_stage_selection.data = autofill.power_stage_selection
 
-            form.position_1.data = autofill.top10_selection_1
-            form.position_2.data = autofill.top10_selection_2
-            form.position_3.data = autofill.top10_selection_3
-            form.position_4.data = autofill.top10_selection_4
-            form.position_5.data = autofill.top10_selection_5
-            form.position_6.data = autofill.top10_selection_6
-            form.position_7.data = autofill.top10_selection_7
-            form.position_8.data = autofill.top10_selection_8
-            form.position_9.data = autofill.top10_selection_9
-            form.position_10.data = autofill.top10_selection_10
-            form.stage_two_selection.data = autofill.stage_two_selection
-            form.power_stage_selection.data = autofill.power_stage_selection
     return render_template('tips.html', title='Tips', form=form, entries_list=entries_list)
