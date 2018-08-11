@@ -8,26 +8,26 @@ from flasksite.models import User, Selection, Event
 from flasksite.scrape import entries_list
 from flask_login import login_user, current_user, logout_user, login_required
 
-# posts = [
-#     {
-#         'author': 'David Turner',
-#         'title': 'Blog post one',
-#         'content': 'This is the first blog post',
-#         'date_posted': '1st August 2018'
-#     },
-#     {
-#         'author': 'Sarah Turner',
-#         'title': 'Blog post two',
-#         'content': 'This is the second blog post',
-#         'date_posted': '2nd August 2018'
-#     },
-#     {
-#         'author': 'David Turner',
-#         'title': 'Blog post three',
-#         'content': 'This is the third blog post',
-#         'date_posted': '3nd August 2018'
-#     }
-# ]
+posts = [
+    {
+        'author': 'David Turner',
+        'title': 'Blog post one',
+        'content': 'This is the first blog post',
+        'date_posted': '1st August 2018'
+    },
+    {
+        'author': 'Sarah Turner',
+        'title': 'Blog post two',
+        'content': 'This is the second blog post',
+        'date_posted': '2nd August 2018'
+    },
+    {
+        'author': 'David Turner',
+        'title': 'Blog post three',
+        'content': 'This is the third blog post',
+        'date_posted': '3nd August 2018'
+    }
+]
 # Reverse the array to show the last item first.
 posts = posts[::-1]
 
