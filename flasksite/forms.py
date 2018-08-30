@@ -7,6 +7,7 @@ from flasksite.models import User
 from flasksite.scrape import entries_list
 
 
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
