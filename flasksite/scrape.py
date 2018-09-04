@@ -19,7 +19,7 @@ events = {
 
 select_box_count = 1
 
-rally_name = 'germany'
+rally_name = 'turkey'
 
 entries_list = ['entries']
 
